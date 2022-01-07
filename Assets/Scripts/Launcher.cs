@@ -56,19 +56,16 @@ namespace Com.LudusApps.PhotonTutorial {
         {
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
-
             if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
             }
             else
             {
-                print("Not Connected, so connecting now");
                 isConnecting = PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.GameVersion = gameVersion;
             }
         }
-
         #endregion
 
         public override void OnConnectedToMaster()

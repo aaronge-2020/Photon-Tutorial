@@ -37,7 +37,6 @@ namespace Com.LudusApps.PhotonTutorial
 
 
         #endregion
-
         #region Private Methods
 
 
@@ -45,11 +44,9 @@ namespace Com.LudusApps.PhotonTutorial
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-
-                Debug.LogError("Can't load level, because not master client");
+                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
             }
-
-            Debug.LogFormat("PhotonNetwork: Loading Level: {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
             PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
         }
 
@@ -66,6 +63,8 @@ namespace Com.LudusApps.PhotonTutorial
             if (PhotonNetwork.IsMasterClient)
             {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+
                 LoadArena();
             }
         }
@@ -79,6 +78,8 @@ namespace Com.LudusApps.PhotonTutorial
             if (PhotonNetwork.IsMasterClient)
             {
                 Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+
                 LoadArena();
             }
         }
@@ -88,18 +89,31 @@ namespace Com.LudusApps.PhotonTutorial
 
         void Start()
         {
+            Instance = this;
+
             if (playerPrefab == null)
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
             }
             else
             {
-                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                print(this.playerPrefab.name);
+
+                if (PlayerManager.LocalPlayerInstance == null)
+                {
+                    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+                    // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+
+                }
+                else
+                {
+                    Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+                }
             }
 
-            Instance = this;
+            
         }
 
     }
