@@ -98,7 +98,7 @@ namespace Com.LudusApps.PhotonTutorial
             else
             {
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                print(this.playerPrefab.name);
+                
 
                 if (PlayerManager.LocalPlayerInstance == null)
                 {

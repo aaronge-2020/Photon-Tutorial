@@ -125,7 +125,8 @@ namespace Com.LudusApps.PhotonTutorial
             if (PlayerUiPrefab != null)
             {
                 GameObject _uiGo = Instantiate(PlayerUiPrefab);
-                //_uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                print("Player UI Instantiated");
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
             else
             {

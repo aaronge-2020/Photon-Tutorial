@@ -84,13 +84,15 @@ namespace Com.LudusApps.PhotonTutorial
         #region Public Methods
         public void SetTarget(PlayerManager _target)
         {
+            // Cache references for efficiency
+            target = _target;
+
             if (_target == null)
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> PlayMakerManager target for PlayerUI.SetTarget.", this);
                 return;
             }
-            // Cache references for efficiency
-            target = _target;
+
             if (playerNameText != null)
             {
                 playerNameText.text = target.photonView.Owner.NickName;
